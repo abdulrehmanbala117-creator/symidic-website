@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block access to any environment or config files
+Disallow: /*.env
+Disallow: /*.git
+Disallow: /temp
+Disallow: /backup
+
+Sitemap: https://symidic.xyz/sitemap.xml
