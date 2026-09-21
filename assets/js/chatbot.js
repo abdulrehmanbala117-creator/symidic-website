@@ -66,7 +66,7 @@
     {
       keys: ["start", "getting started", "begin", "book", "how to", "next step", "get started", "setup", "begin"],
       answer:
-        "The best first step is a free discovery call — we map out the right AI support and automation for your store.\n\n📅 Book here: https://cal.com/symidic/symidic-discovery-call\n\nYou can also email us at contact@symidic.xyz or message us on WhatsApp: https://wa.me/923037061168",
+        "The best first step is a free discovery call — we map out the right AI support and automation for your store.\n\n📅 Book here: https://cal.com/symidic/symidic-discovery-call\n\nYou can also email us at Contact@Symidic.xyz or message us on WhatsApp: https://wa.me/923037061168",
     },
     {
       keys: ["demo", "video", "watch", "show me", "see it", "example", "youtube"],
@@ -76,7 +76,7 @@
     {
       keys: ["contact", "call", "whatsapp", "email", "reach", "talk", "meeting", "booking", "schedule", "book"],
       answer:
-        "Here's how to reach us:\n\n📧 Email: contact@symidic.xyz\n💬 WhatsApp: https://wa.me/923037061168\n📅 Book a discovery call: https://cal.com/symidic/symidic-discovery-call\n🔗 LinkedIn: https://www.linkedin.com/in/ab-rehman-203a15419/",
+        "Here's how to reach us:\n\n📧 Email: Contact@Symidic.xyz\n💬 WhatsApp: https://wa.me/923037061168\n📅 Book a discovery call: https://cal.com/symidic/symidic-discovery-call\n🔗 LinkedIn: https://www.linkedin.com/in/ab-rehman-203a15419/",
     },
     {
       keys: ["order", "track", "shipping", "delivery", "package", "status", "where is my order"],
