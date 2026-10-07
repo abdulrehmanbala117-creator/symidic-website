@@ -1,4 +1,4 @@
-/* ========================================================================
+﻿/* ========================================================================
    Symidic — Main JavaScript
    Nav, scroll reveals, parallax, scroll progress, scroll-spy, video load
    ======================================================================== */
@@ -189,4 +189,30 @@
       });
     }
   }
+  /* --- Copy email buttons -------------------------------------------- */
+  document.querySelectorAll('.copy-email').forEach(function(btn) {
+    btn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      const email = this.getAttribute('data-email') || this.textContent;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = email;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        const old = this.textContent;
+        this.textContent = 'Copied!';
+        setTimeout(() => { this.textContent = old; }, 2000);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+    });
+  });
 })();

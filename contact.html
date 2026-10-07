@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -107,15 +107,21 @@
               </span>
             </a>
 
-            <a class="contact-card reveal reveal-delay-2" href="mailto:Contact@Symidic.xyz" target="_top">
-              <div class="cc-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <div class="contact-card reveal reveal-delay-2" style="cursor: default;">
+              <a href="mailto:Contact@Symidic.xyz" target="_top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; flex: 1;">
+                <div class="cc-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <span>
+                  <strong>Email</strong>
+                  <span>Contact@Symidic.xyz</span>
+                </span>
+              </a>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-left: auto; align-items: flex-end;">
+                <button class="btn btn-ghost btn-sm copy-email" data-email="Contact@Symidic.xyz" style="font-size: 0.85rem; padding: 6px 10px;">Copy email</button>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Contact@Symidic.xyz" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="font-size: 0.85rem; padding: 6px 10px;">Open in Gmail</a>
               </div>
-              <span>
-                <strong>Email</strong>
-                <span>Contact@Symidic.xyz</span>
-              </span>
-            </a>
+            </div>
 
             <div class="contact-social">
               <a class="contact-card reveal reveal-delay-3" href="https://www.linkedin.com/in/ab-rehman-203a15419/" target="_blank" rel="noopener" aria-label="SYMIDIC on LinkedIn">
@@ -187,7 +193,12 @@
             <h2>Prefer to message directly?</h2>
             <p>Send us an email or WhatsApp message — we'll respond within one business day.</p>
           </div>
-          <a class="btn btn-primary btn-lg" href="mailto:Contact@Symidic.xyz" target="_top">Email Us →</a>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center;">
+            <a class="btn btn-primary btn-lg" href="mailto:Contact@Symidic.xyz" target="_top">Email Us</a>
+            <span style="font-weight: 600;">Contact@Symidic.xyz</span>
+            <button class="btn btn-ghost btn-sm copy-email" data-email="Contact@Symidic.xyz" style="font-size: 0.85rem; padding: 6px 10px;">Copy email</button>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Contact@Symidic.xyz" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="font-size: 0.85rem; padding: 6px 10px;">Open in Gmail</a>
+          </div>
         </div>
       </div>
     </section>
@@ -213,7 +224,12 @@
       </div>
       <div class="footer-grid" style="justify-content:space-between;margin-top:26px;">
         <div class="footer-links">
-          <a href="mailto:Contact@Symidic.xyz" target="_top">Email</a>
+                    <span style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+            <span style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;"><a href="mailto:Contact@Symidic.xyz" target="_top">Email</a> <span>Contact@Symidic.xyz</span><button class="btn btn-ghost btn-sm copy-email" data-email="Contact@Symidic.xyz" style="font-size: 0.85rem; padding: 4px 8px;">Copy</button><a href="https://mail.google.com/mail/?view=cm&fs=1&to=Contact@Symidic.xyz" target="_blank" rel="noopener" style="font-size: 0.85rem;">Open in Gmail</a></span>
+            <span>Contact@Symidic.xyz</span>
+            <button class="btn btn-ghost btn-sm copy-email" data-email="Contact@Symidic.xyz" style="font-size: 0.85rem; padding: 4px 8px;">Copy</button>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Contact@Symidic.xyz" target="_blank" rel="noopener" style="font-size: 0.85rem;">Open in Gmail</a>
+          </span>
           <a href="https://wa.me/923037061168" target="_blank" rel="noopener">WhatsApp</a>
           <a href="https://www.linkedin.com/in/ab-rehman-203a15419/" target="_blank" rel="noopener" aria-label="SYMIDIC on LinkedIn">LinkedIn</a>
           <a href="https://www.facebook.com/profile.php" target="_blank" rel="noopener" aria-label="SYMIDIC on Facebook">Facebook</a>
