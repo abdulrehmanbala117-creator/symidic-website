@@ -1,4 +1,4 @@
-﻿/* ========================================================================
+/* ========================================================================
    Symidic — Main JavaScript
    Nav, scroll reveals, parallax, scroll progress, scroll-spy, video load
    ======================================================================== */
@@ -215,4 +215,81 @@
       }
     });
   });
+  /* --- Aceternity Mouse Spotlight Effect ----------------------------- */
+  const spotlightCards = document.querySelectorAll(
+    ".spotlight-card, .service-card, .why-card, .ps-card, .metric-card, .terminal-window"
+  );
+  spotlightCards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+
+  /* --- Interactive Scrollytelling Pipeline --------------------------- */
+  const scrollyCards = document.querySelectorAll(".scrolly-card");
+  const deckStages = document.querySelectorAll(".deck-stage");
+  if (scrollyCards.length && deckStages.length) {
+    scrollyCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const targetStep = card.getAttribute("data-step");
+        scrollyCards.forEach((c) => c.classList.remove("active"));
+        deckStages.forEach((s) => s.classList.remove("active"));
+        card.classList.add("active");
+        const activeStage = document.querySelector(`.deck-stage[data-stage="${targetStep}"]`);
+        if (activeStage) activeStage.classList.add("active");
+      });
+    });
+
+    const scrollyObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+          const step = entry.target.getAttribute("data-step");
+          scrollyCards.forEach((c) => c.classList.remove("active"));
+          deckStages.forEach((s) => s.classList.remove("active"));
+          entry.target.classList.add("active");
+          const activeStage = document.querySelector(`.deck-stage[data-stage="${step}"]`);
+          if (activeStage) activeStage.classList.add("active");
+        }
+      });
+    }, { threshold: 0.5, rootMargin: "-15% 0px -15% 0px" });
+
+    scrollyCards.forEach((card) => scrollyObserver.observe(card));
+  }
+
+  /* --- Animated Number Counters -------------------------------------- */
+  const counterEls = document.querySelectorAll(".counter-val");
+  if (counterEls.length) {
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const targetNum = parseFloat(el.getAttribute("data-count"));
+          const prefix = el.getAttribute("data-prefix") || "";
+          const suffix = el.getAttribute("data-suffix") || "";
+          const decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+          const duration = 1600;
+          const startTime = performance.now();
+
+          const updateCount = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const currentVal = progress === 1 ? targetNum : targetNum * (1 - Math.pow(2, -10 * progress));
+            el.textContent = `${prefix}${currentVal.toFixed(decimals)}${suffix}`;
+            if (progress < 1) {
+              requestAnimationFrame(updateCount);
+            } else {
+              el.textContent = `${prefix}${targetNum.toFixed(decimals)}${suffix}`;
+            }
+          };
+          requestAnimationFrame(updateCount);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+    counterEls.forEach((el) => countObserver.observe(el));
+  }
 })();
