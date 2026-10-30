@@ -292,4 +292,58 @@
     }, { threshold: 0.3 });
     counterEls.forEach((el) => countObserver.observe(el));
   }
+
+  /* --- Fey.com MacBook Pro 3D Scroll & Mouse Tilt Engine ------------ */
+  const macbookLid = document.querySelector(".macbook-lid");
+  const macbookScene = document.querySelector(".macbook-scene");
+  const macbookContainer = document.querySelector(".macbook-container");
+  if (macbookLid && macbookScene && macbookContainer) {
+    const BASE_TILT_X = 22; // Natural 3D isometric pitch
+    const BASE_TILT_Y = -6; // Subtle aesthetic angle facing the hero copy
+    let mouseTiltX = 0, mouseTiltY = 0;
+    let currentTiltX = BASE_TILT_X, currentTiltY = BASE_TILT_Y;
+    let targetLidRotate = -28;
+    let currentLidRotate = -28;
+
+    // Scroll-driven lid opening: smoothly unfolds as user scrolls
+    function updateScrollLid() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const progress = Math.min(Math.max(scrollY / 450, 0), 1);
+      // Lid rotates from -28deg (sleek semi-open) to +8deg (open wide leaning back)
+      targetLidRotate = -28 + (progress * 36);
+    }
+    window.addEventListener("scroll", updateScrollLid, { passive: true });
+    updateScrollLid();
+
+    // Interactive 3D mouse parallax tilt
+    macbookScene.addEventListener("mousemove", (e) => {
+      const rect = macbookScene.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      mouseTiltY = x * 18;
+      mouseTiltX = -y * 14;
+    });
+
+    macbookScene.addEventListener("mouseleave", () => {
+      mouseTiltX = 0;
+      mouseTiltY = 0;
+    });
+
+    // 60FPS Physics Loop for smooth damping
+    function animateMacbookPhysics() {
+      // Damped spring interpolation for chassis 3D tilt
+      currentTiltX += ((BASE_TILT_X + mouseTiltX) - currentTiltX) * 0.08;
+      currentTiltY += ((BASE_TILT_Y + mouseTiltY) - currentTiltY) * 0.08;
+      macbookContainer.style.setProperty("--base-tilt-x", `${currentTiltX.toFixed(2)}deg`);
+      macbookContainer.style.setProperty("--base-tilt-y", `${currentTiltY.toFixed(2)}deg`);
+
+      // Damped spring for lid rotation
+      currentLidRotate += (targetLidRotate - currentLidRotate) * 0.1;
+      macbookLid.style.setProperty("--lid-rotate", `${currentLidRotate.toFixed(2)}deg`);
+
+      requestAnimationFrame(animateMacbookPhysics);
+    }
+    requestAnimationFrame(animateMacbookPhysics);
+  }
+
 })();
