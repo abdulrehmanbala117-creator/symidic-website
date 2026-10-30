@@ -126,7 +126,11 @@
   function addMessage(text, type) {
     const div = document.createElement("div");
     div.className = "msg " + type;
-    div.innerHTML = text;
+    if (type === "user") {
+      div.textContent = text; // Hardened against any DOM XSS injection
+    } else {
+      div.innerHTML = text; // Safe curated bot output
+    }
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
     messageCount++;
@@ -144,7 +148,7 @@
   function addBookingCta(text) {
     return (
       text +
-      '\n\n<div class="chat-cta"><a href="https://cal.com/symidic/symidic-discovery-call" target="_blank" rel="noopener">📅 Book a Discovery Call</a></div>'
+      '\n\n<div class="chat-cta"><a href="https://cal.com/symidic/symidic-discovery-call" target="_blank" rel="noopener noreferrer">📅 Book a Discovery Call</a></div>'
     );
   }
 
@@ -222,7 +226,8 @@
   /* --- Handle Input --------------------------------------------------- */
   function handleUserInput(text) {
     if (!text || !text.trim()) return;
-    addMessage(text, "user");
+    const cleanText = text.trim().slice(0, 500); // 500-char buffer limit against payload flood
+    addMessage(cleanText, "user");
     inputEl.value = "";
     hideSuggestions();
     showTyping();
