@@ -432,6 +432,54 @@
           <p class="section-sub">A walkthrough of the type of Shopify AI customer support workflow SYMIDIC builds — from customer inquiry to resolved ticket.</p>
         </div>
 
+        <!-- Interactive Live AI Support Sandbox (Test Drive) -->
+        <div class="sandbox-deck reveal">
+          <div class="sandbox-header">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="pulse-emerald" style="width:7px;height:7px;"></span>
+              <span>symidic-agent-v2.6 // interactive-sandbox</span>
+            </div>
+            <span class="event-tag emerald" style="font-size:9px;">SHOPIFY STORE CONNECTED</span>
+          </div>
+
+          <div class="sandbox-controls">
+            <span style="font-size:11px;color:var(--muted);font-weight:500;">Click sample prompt:</span>
+            <button type="button" class="sandbox-chip active" data-q="track">🚚 Track Order #SHP-9481</button>
+            <button type="button" class="sandbox-chip" data-q="exchange">🔄 Exchange for Size L</button>
+            <button type="button" class="sandbox-chip" data-q="return">⏱️ Return &amp; Refund Policy</button>
+          </div>
+
+          <div class="sandbox-terminal" id="sandbox-stream">
+            <!-- User message -->
+            <div class="msg-row user">
+              <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);">Customer • Just now</span>
+              <div class="msg-bubble user" id="sandbox-user-msg">
+                "Hi! Where is my order #SHP-9481? Ordered 2 days ago."
+              </div>
+            </div>
+
+            <!-- Agent reasoning & message -->
+            <div class="msg-row agent" id="sandbox-agent-row">
+              <div class="reasoning-pill" id="sandbox-reasoning">
+                <span class="pulse-emerald" style="width:5px;height:5px;"></span>
+                <span>[Shopify Admin GraphQL] Real-time tracking query resolved in 34ms</span>
+              </div>
+              <div class="msg-bubble agent" id="sandbox-agent-msg">
+                "Hello Alex! Your order <strong>#SHP-9481</strong> is currently in transit with FedEx Express and is scheduled for delivery <strong>today by 2:30 PM</strong>. Live Tracking: <strong style='color:#38bdf8;'>trk.fedex.com/9481</strong>"
+              </div>
+            </div>
+          </div>
+
+          <div class="sandbox-input-bar">
+            <input type="text" class="sandbox-input" id="sandbox-custom-input" placeholder="Type a customer question (e.g. 'Can I change my address?')..." />
+            <button type="button" class="sandbox-btn" id="sandbox-send-btn">Simulate AI</button>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:24px;">
+          <span class="kicker" style="font-size:11px;">Or watch the full video walkthrough below</span>
+        </div>
+
         <figure class="demo-wrap reveal">
           <div class="video-container">
             <iframe

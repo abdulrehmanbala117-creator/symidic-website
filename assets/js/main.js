@@ -346,4 +346,99 @@
     requestAnimationFrame(animateMacbookPhysics);
   }
 
+
+  /* --- 3D Card Parallax Tilt Engine (Aceternity 3D Pin / Bento Tilt) --- */
+  if (window.matchMedia("(hover: hover)").matches) {
+    const tiltCards = document.querySelectorAll(".service-card, .why-card, .metric-card, .ps-card, .sandbox-deck");
+    tiltCards.forEach((card) => {
+      let cardBounds = null;
+      card.addEventListener("mouseenter", () => {
+        cardBounds = card.getBoundingClientRect();
+        card.style.transition = "transform 0.1s ease-out, box-shadow 0.25s ease";
+      });
+      card.addEventListener("mousemove", (e) => {
+        if (!cardBounds) cardBounds = card.getBoundingClientRect();
+        const x = (e.clientX - cardBounds.left) / cardBounds.width - 0.5;
+        const y = (e.clientY - cardBounds.top) / cardBounds.height - 0.5;
+        const tiltX = -y * 12;
+        const tiltY = x * 12;
+        card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-5px) translateZ(8px)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transition = "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease";
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) translateZ(0)";
+        cardBounds = null;
+      });
+    });
+  }
+
+  /* --- Interactive Live Demo Sandbox Simulation Engine -------------- */
+  const sandboxChips = document.querySelectorAll(".sandbox-chip");
+  const userMsgEl = document.getElementById("sandbox-user-msg");
+  const agentMsgEl = document.getElementById("sandbox-agent-msg");
+  const reasoningEl = document.getElementById("sandbox-reasoning");
+  const customInputEl = document.getElementById("sandbox-custom-input");
+  const sendBtnEl = document.getElementById("sandbox-send-btn");
+
+  const QA_PRESETS = {
+    track: {
+      q: "Hi! Where is my order #SHP-9481? Ordered 2 days ago.",
+      reason: "[Shopify Admin GraphQL] Real-time tracking query resolved in 34ms",
+      a: "Hello Alex! Your order <strong>#SHP-9481</strong> is currently in transit with FedEx Express and is scheduled for delivery <strong>today by 2:30 PM</strong>. Live Tracking: <strong style='color:#38bdf8;'>trk.fedex.com/9481</strong>"
+    },
+    exchange: {
+      q: "Can I exchange my wool jacket for a Size Large?",
+      reason: "[Shopify Inventory API] Checking Size Large inventory across warehouses... 7 units available",
+      a: "Yes, absolutely! We have 7 units of Size Large in stock. I have reserved one for you and emailed your pre-paid instant return label. Drop off the current jacket whenever convenient!"
+    },
+    return: {
+      q: "What is your refund policy? Can I return opened items?",
+      reason: "[Store Knowledge Policy] RAG match: 30-Day Hassle-Free Returns SLA",
+      a: "You have 30 days from delivery to request a full refund! Opened items in original condition qualify for 100% money back with free return shipping. Would you like me to start your return now?"
+    }
+  };
+
+  function simulateAgentResponse(queryText, reasoningText, responseText) {
+    if (!userMsgEl || !agentMsgEl || !reasoningEl) return;
+    userMsgEl.textContent = queryText;
+    reasoningEl.innerHTML = `<span class="pulse-emerald" style="width:5px;height:5px;"></span><span>Reasoning: Neural parsing &amp; Shopify data sync...</span>`;
+    agentMsgEl.innerHTML = `<span style="color:var(--muted);font-style:italic;">Synthesizing verified resolution...</span>`;
+
+    setTimeout(() => {
+      reasoningEl.innerHTML = `<span class="pulse-emerald" style="width:5px;height:5px;"></span><span>${reasoningText}</span>`;
+      agentMsgEl.innerHTML = responseText;
+    }, 420);
+  }
+
+  if (sandboxChips.length) {
+    sandboxChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        sandboxChips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+        const key = chip.getAttribute("data-q");
+        if (QA_PRESETS[key]) {
+          simulateAgentResponse(QA_PRESETS[key].q, QA_PRESETS[key].reason, QA_PRESETS[key].a);
+        }
+      });
+    });
+  }
+
+  if (sendBtnEl && customInputEl) {
+    const handleCustomSend = () => {
+      const val = customInputEl.value.trim();
+      if (!val) return;
+      sandboxChips.forEach((c) => c.classList.remove("active"));
+      simulateAgentResponse(
+        `"${val}"`,
+        "[Shopify Neural Classifier] Custom intent parsed • 99.8% confidence match",
+        `"Thank you for reaching out! Regarding <em>${val}</em>, our autonomous agent has verified your account policies and resolved your request instantly with zero human waiting time!"`
+      );
+      customInputEl.value = "";
+    };
+    sendBtnEl.addEventListener("click", handleCustomSend);
+    customInputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") handleCustomSend();
+    });
+  }
+
 })();
